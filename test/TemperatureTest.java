@@ -1,7 +1,6 @@
-import lab02.AbstractTemperature;
-import lab02.CelsiusTemperature;
-import lab02.FahrenheitTemperature;
-import lab02.Temperature;
+import temperature.CelsiusTemperature;
+import temperature.FahrenheitTemperature;
+import temperature.Temperature;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,17 +54,17 @@ public class TemperatureTest {
    */
   @Test
   public void testObservers() {
-    assertEquals(100, cTemp.inCelsius(), 0.001);
-    assertEquals(212, cTemp.inFahrenheit(), 0.001);
-    assertEquals(373.15, cTemp.inKelvin(), 0.001);
+    assertEquals(100, cTemp.inCelsius(), 0.01);
+    assertEquals(212, cTemp.inFahrenheit(), 0.01);
+    assertEquals(373.15, cTemp.inKelvin(), 0.01);
 
     assertEquals(-184.44, coldTemp.inCelsius(), 0.01);
     assertEquals(-300, coldTemp.inFahrenheit(), 0.01);
     assertEquals(88.71, coldTemp.inKelvin(), 0.01);
 
-    assertEquals(2000, hotTemp.inCelsius(), 0.001);
-    assertEquals(3632, hotTemp.inFahrenheit(), 0.001);
-    assertEquals(2273.15, hotTemp.inKelvin(), 0.001);
+    assertEquals(2000, hotTemp.inCelsius(), 0.01);
+    assertEquals(3632, hotTemp.inFahrenheit(), 0.01);
+    assertEquals(2273.15, hotTemp.inKelvin(), 0.01);
   }
 
   /**
@@ -73,7 +72,7 @@ public class TemperatureTest {
    */
   @Test
   public void testInFahrenheit() {
-    assertEquals(212, fTemp.inFahrenheit(), 0.001);
+    assertEquals(212, fTemp.inFahrenheit(), 0.01);
   }
 
   /**
@@ -81,19 +80,19 @@ public class TemperatureTest {
    */
   @Test
   public void testAverage() {
-    assertEquals(100, cTemp.average(fTemp).inCelsius(),0.001);
-    assertEquals(212, fTemp.average(cTemp).inFahrenheit(),0.001);
+    assertEquals(100, cTemp.average(fTemp).inCelsius(),0.01);
+    assertEquals(212, fTemp.average(cTemp).inFahrenheit(),0.01);
 
-    assertEquals(907.78, hotColdAverage.getTemperature() ,0.01);
-    assertEquals(361.67, hotColdAverage.average(coldTemp).getTemperature(),0.01);
-    assertEquals(503.89, hotColdAverage.average(fTemp).getTemperature(),0.01);
+    assertEquals(907.78, hotColdAverage.inCelsius() ,0.01);
+    assertEquals(361.67, hotColdAverage.average(coldTemp).inCelsius(),0.01);
+    assertEquals(503.89, hotColdAverage.average(fTemp).inCelsius(),0.01);
 
     //Same object
-    assertEquals(907.78, hotColdAverage.average(hotColdAverage).getTemperature() ,0.01);
+    assertEquals(907.78, hotColdAverage.average(hotColdAverage).inCelsius() ,0.01);
 
     //cold object
     Temperature newCold = new CelsiusTemperature(-20.45);
-    assertEquals(-152.41, coldTemp.average(newCold).getTemperature() ,0.01);
+    assertEquals(-152.41, coldTemp.average(newCold).inFahrenheit() ,0.01);
 
   }
 
@@ -113,7 +112,7 @@ public class TemperatureTest {
    * test the method compareTo.
    * This should return 0 if the temperatures are equal.
    *                    1 if the instance is greater than the parameter's instance.
-   *                    -1 if the intances is lower than the parameter's instance.
+   *                    -1 if the instances is lower than the parameter's instance.
    */
   @Test
   public void testCompareToWhenEqual() {
@@ -130,7 +129,7 @@ public class TemperatureTest {
    * test the method compareTo.
    * This should return 0 if the temperatures are equal.
    *                    1 if the instance is greater than the parameter's instance.
-   *                    -1 if the intances is lower than the parameter's instance.
+   *                    -1 if the instances is lower than the parameter's instance.
    */
   @Test
   public void testCompareToWhenGreater() {
@@ -147,7 +146,7 @@ public class TemperatureTest {
    * test the method compareTo.
    * This should return 0 if the temperatures are equal.
    *                    1 if the instance is greater than the parameter's instance.
-   *                    -1 if the intances is lower than the parameter's instance.
+   *                    -1 if the instances is lower than the parameter's instance.
    */
   @Test
   public void testCompareToWhenLower() {
@@ -161,34 +160,4 @@ public class TemperatureTest {
   }
 
   // Think of other tests that you need to write in order to validate the classes you created.
-
-  /**
-   * Test getters for this class.
-   * getTemperature and getUnit
-   */
-  @Test
-  public void testGetters() {
-
-    assertEquals(100, cTemp.getTemperature() , 0.001);
-    assertEquals(212, fTemp.getTemperature() , 0.001);
-
-    assertEquals(AbstractTemperature.CELSIUS, cTemp.getUnit());
-    assertEquals(AbstractTemperature.FAHRENHEIT, fTemp.getUnit());
-
-  }
-
-  /**
-   * Test the method is celsius
-   */
-  @Test
-  public void testIsCelsius() {
-
-    CelsiusTemperature celTemp = new CelsiusTemperature(500);
-    assertTrue(celTemp.isCelsius());
-
-    FahrenheitTemperature fahTemp = new FahrenheitTemperature(500);
-    assertFalse(fahTemp.isCelsius());
-
-  }
-
 }

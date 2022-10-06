@@ -1,4 +1,4 @@
-package lab02;
+package temperature;
 
 /**
  * This class represents a  CelsiusTemperature with a unit and a temperature, it extends
@@ -14,10 +14,6 @@ public class CelsiusTemperature extends AbstractTemperature {
     public CelsiusTemperature( double temperature) throws IllegalArgumentException {
 
         super(AbstractTemperature.CELSIUS, temperature);
-
-        if (temperature < Temperature.ABS_ZERO_C) {
-            throw new IllegalArgumentException("Temperature can not be lower than Absolute Zero");
-        }
 
     }
 

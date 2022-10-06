@@ -1,4 +1,4 @@
-package lab02;
+package temperature;
 
 /**
  * This class Represents an abstraction of temperature with units and temperature value.
@@ -17,43 +17,33 @@ public abstract class AbstractTemperature implements Temperature{
      * Constructs a Temperature and initialize it to the given unit and temperature value
      * @param unit Type of unit. It can be Celsius Or Fahrenheit
      * @param temperature Represent the temperature value
+     * @throws IllegalArgumentException IF the temperature is lower than ABS_ZERO_C.
      */
-    public AbstractTemperature(String unit, double temperature) {
+    public AbstractTemperature(String unit, double temperature) throws IllegalArgumentException  {
         this.unit = unit;
         this.temperature = temperature;
+
+        if (this.inCelsius() < Temperature.ABS_ZERO_C) {
+            throw new IllegalArgumentException("Temperature can not be lower than Absolute Zero");
+        }
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public double getTemperature() {
-        return temperature;
-    }
-
+    @Override
     public double inCelsius() {
-
-        if(this.isCelsius()){
-            return this.temperature;
-        }
-
-        return (this.temperature - 32 ) * 5/9;
+        return this.isCelsius() ? this.getTemperature() : (this.getTemperature() - 32 ) * 5/9;
     }
 
+    @Override
     public double inFahrenheit() {
-
-        if(this.isCelsius()){
-            return (this.temperature * 9/5) +  32;
-        }
-
-        return this.temperature;
+        return this.isCelsius() ? (this.getTemperature() * 9/5) +  32 : this.getTemperature();
     }
 
+    @Override
     public double inKelvin() {
-
-        return (double) this.inCelsius() - Temperature.ABS_ZERO_C;
+        return this.inCelsius() - Temperature.ABS_ZERO_C;
     }
 
+    @Override
     public Temperature average (Temperature otherTemperature) {
 
         Temperature newTemperature;
@@ -71,7 +61,7 @@ public abstract class AbstractTemperature implements Temperature{
 
     @Override
     public String toString() {
-        return  String.format("%.1f",this.temperature) + "° " + this.unit;
+        return  String.format("%.1f",this.getTemperature()) + "° " + this.getUnit();
     }
 
     @Override
@@ -85,9 +75,26 @@ public abstract class AbstractTemperature implements Temperature{
      * Verify if the unit type is Celsius
      * @return True if this is a Celsius Unit. Otherwise, false.
      */
-    public boolean isCelsius () {
+    protected boolean isCelsius () {
         return this.getUnit() == AbstractTemperature.CELSIUS;
     }
 
+    /**
+     * Get the unit of this object - Celsius or Fahrenheit
+     *
+     * @return the unit of this temperature
+     */
+    protected String getUnit() {
+        return unit;
+    }
+
+    /**
+     * Get the temperature of this object
+     *
+     * @return the temperature of the instance
+     */
+    protected double getTemperature() {
+        return temperature;
+    }
 
 }

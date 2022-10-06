@@ -1,4 +1,4 @@
-package lab02;
+package temperature;
 
 /**
  * This class represents a FahrenheitTemperature with a unit and a temperature, it extends
@@ -14,11 +14,6 @@ public class FahrenheitTemperature extends AbstractTemperature {
     public FahrenheitTemperature( double temperature) throws IllegalArgumentException {
 
         super(AbstractTemperature.FAHRENHEIT, temperature);
-
-        if (temperature < Temperature.ABS_ZERO_F) {
-            throw new IllegalArgumentException("Temperature can not be lower than Absolute Zero");
-        }
-
     }
 
 
