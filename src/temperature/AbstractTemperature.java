@@ -7,7 +7,7 @@ package temperature;
 public abstract class AbstractTemperature implements Temperature{
 
     protected final String unit;
-    protected double temperature;
+    protected final double temperature;
 
     public static final String CELSIUS = "Celsius";
     public static final String FAHRENHEIT = "Fahrenheit";
